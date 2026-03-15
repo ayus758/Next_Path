@@ -34,8 +34,9 @@ To prepare for GATE, a student visits YouTube for lectures, a coaching website f
 
 ## Live Demo
 
-🔗🔗 [ayus758.github.io/nexpath](https://ayus758.github.io/Next_Path/)
+🔗 [ayus758.github.io/nexpath](https://ayus758.github.io/nexpath/)
 
+----
 ## Features
 
 | Feature | Description | Status |
@@ -73,7 +74,7 @@ To prepare for GATE, a student visits YouTube for lectures, a coaching website f
 - **NLP / NER** — Content aggregation and structuring
 
 ### Deployment
-- **Vercel** — Frontend hosting
+- **Githun Pages** — Frontend hosting
 - **Render** — Backend hosting
 - **MongoDB Atlas** — Database hosting
 - **GitHub CI/CD** — Continuous deployment
