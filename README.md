@@ -211,7 +211,7 @@ nexpath/
 
 ## Team
 
-**Team NexPath** · National Hackathon 2025
+**Team Debug & Conquer** ·Graph-e-thon
 
 ---
 
