@@ -178,3 +178,56 @@ Advanced NLP aggregation is simplified for demo.
 Team NexPath · Graph-E-Thon 2026
 
 ---
+
+## Local Setup (Team)
+
+### Prerequisites
+
+* Node.js 18+
+* npm 9+
+* MongoDB Atlas URI (or local MongoDB)
+
+### 1) Backend setup
+
+Open terminal in server folder:
+
+* Copy .env.example to .env
+* Fill real values in .env:
+  * MONGO_URI
+  * JWT_SECRET
+* Install and run:
+  * npm install
+  * npm run dev
+
+Expected backend URL:
+
+* http://localhost:5000
+* Health check: http://localhost:5000/api/health
+
+### 2) Frontend setup
+
+Open terminal in client folder:
+
+* Copy .env.example to .env
+* Install and run:
+  * npm install
+  * npm run dev
+
+Expected frontend URL:
+
+* http://localhost:5173
+
+### 3) Verify auth flow
+
+* Register a new account from the app UI
+* Login with the same credentials
+
+### Common issues (and fixes)
+
+* Login fails with network error:
+  * Backend is not running or wrong API URL in client .env
+* Login fails with invalid credentials:
+  * User not registered in this teammate's database yet
+* Server starts but DB fails:
+  * Invalid MONGO_URI or blocked Atlas IP access
+
