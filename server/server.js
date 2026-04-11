@@ -12,10 +12,7 @@ app.use(express.json());
 
 // Database Connection
 mongoose
-  .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/prepfusion', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/prepfusion')
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.log('MongoDB connection error: ', err));
 

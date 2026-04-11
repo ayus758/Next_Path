@@ -1,42 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle2, Circle, PlayCircle, FileText, Code2, BrainCircuit, Loader2 } from 'lucide-react';
+import { apiRequest } from '../lib/api';
 
 const Roadmap = () => {
   const [roadmap, setRoadmap] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  // Mocking the fetch - in a real scenario we'd use useEFfect to call our new GET /api/roadmap endpoint
   useEffect(() => {
-    // Simulating API Fetch corresponding to the controller we built
-    setTimeout(() => {
-      setRoadmap({
-        targetGoal: 'Placement',
-        progressPercentage: 12,
-        milestones: [
-          {
-            _id: "m1",
-            title: "Week 1-2: Core Language & Math Basics",
-            status: "Active",
-            tasks: [
-              { _id: "t1", title: "Learn Time & Space Complexity", type: "Concept", estimatedHours: 2, isCompleted: true },
-              { _id: "t2", title: "Basic Math for DSA", type: "Article", estimatedHours: 3, isCompleted: false },
-              { _id: "t3", title: "Solve 10 Easy Array problems", type: "Practice", estimatedHours: 5, isCompleted: false }
-            ]
-          },
-          {
-            _id: "m2",
-            title: "Week 3-5: Data Structures Deep Dive",
-            status: "Pending",
-            tasks: [
-              { _id: "t4", title: "Linked Lists & Pointers", type: "Video", estimatedHours: 4, isCompleted: false },
-              { _id: "t5", title: "Stacks and Queues implementations", type: "Practice", estimatedHours: 5, isCompleted: false },
-              { _id: "t6", title: "Weekly Mock Test 1", type: "MockTest", estimatedHours: 2, isCompleted: false }
-            ]
-          }
-        ]
-      });
-      setLoading(false);
-    }, 1500);
+    const loadRoadmap = async () => {
+      try {
+        const data = await apiRequest('/api/roadmap');
+        setRoadmap(data);
+      } catch (err) {
+        setError(err.message || 'Failed to load roadmap');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRoadmap();
   }, []);
 
   const getTaskIcon = (type) => {
@@ -49,38 +32,15 @@ const Roadmap = () => {
     }
   };
 
-  const toggleTask = (mId, tId) => {
-    // In actual implementation: send PUT /api/roadmap/task/:mId/:tId
-    setRoadmap(prev => {
-      let total = 0, completed = 0;
-      const newMilestones = prev.milestones.map(m => {
-        if (m._id === mId) {
-          const newTasks = m.tasks.map(t => {
-             if (t._id === tId) {
-                const toggled = !t.isCompleted;
-                if(toggled) completed++;
-                total++;
-                return { ...t, isCompleted: toggled };
-             }
-             if(t.isCompleted) completed++;
-             total++;
-             return t;
-          });
-          return { ...m, tasks: newTasks };
-        }
-        m.tasks.forEach(t => {
-          total++;
-          if (t.isCompleted) completed++;
-        });
-        return m;
+  const toggleTask = async (mId, tId) => {
+    try {
+      const updatedRoadmap = await apiRequest(`/api/roadmap/task/${mId}/${tId}`, {
+        method: 'PUT',
       });
-
-      return {
-        ...prev,
-        milestones: newMilestones,
-        progressPercentage: Math.round((completed / total) * 100)
-      };
-    });
+      setRoadmap(updatedRoadmap);
+    } catch (err) {
+      setError(err.message || 'Failed to update task status');
+    }
   };
 
   if (loading) {
@@ -88,6 +48,15 @@ const Roadmap = () => {
       <div className="h-full flex flex-col items-center justify-center pt-20">
         <Loader2 className="animate-spin text-purple-500 mb-4" size={48} />
         <p className="text-[var(--muted-foreground)]">Generating your personalized roadmap...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="h-full flex flex-col items-center justify-center pt-20 px-6 text-center">
+        <p className="text-red-400 font-semibold mb-2">Could not load roadmap</p>
+        <p className="text-[var(--muted-foreground)]">{error}</p>
       </div>
     );
   }

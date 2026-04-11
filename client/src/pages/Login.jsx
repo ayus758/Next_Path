@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { apiRequest } from '../lib/api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,17 +15,20 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
-    // Simulate API call for now. When integrating actual API:
-    // fetch('/api/auth/login', { ... })
+
     try {
-      setTimeout(() => {
-        // Mock success
-        setLoading(false);
-        navigate('/dashboard');
-      }, 1000);
+      const data = await apiRequest('/api/auth/login', {
+        method: 'POST',
+        body: formData,
+        auth: false,
+      });
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      navigate('/dashboard');
     } catch (err) {
-      setError('Invalid credentials');
+      setError(err.message || 'Invalid credentials');
+    } finally {
       setLoading(false);
     }
   };

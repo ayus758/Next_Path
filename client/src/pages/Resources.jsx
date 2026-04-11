@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, PlayCircle, FileText, Code2, BookOpen, ExternalLink, Loader2 } from 'lucide-react';
+import { apiRequest } from '../lib/api';
 
 const Resources = () => {
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
 
   useEffect(() => {
-    // Simulating API Fetch corresponding to the logic in resourceController
-    setTimeout(() => {
-      setResources([
-        { _id: '1', title: "100 DSA Interview Questions", description: "The ultimate curated list of top data structure and algorithm questions asked in FAANG.", type: "Practice", difficulty: "Intermediate", topic: "DSA", sourceName: "LeetCode", url: "#", tags: ["arrays", "trees", "DP"] },
-        { _id: '2', title: "Operating Systems Crash Course", description: "Understand OS from scratch: Process Scheduling, Concurrency, and Deadlocks.", type: "Video", difficulty: "Beginner", topic: "OS", sourceName: "YouTube", url: "#", tags: ["OS", "processes"] },
-        { _id: '3', title: "Normal Forms in DBMS Explained", description: "Deep dive into 1NF, 2NF, 3NF and BCNF with real-world table examples.", type: "Article", difficulty: "Intermediate", topic: "DBMS", sourceName: "GeeksforGeeks", url: "#", tags: ["database"] },
-        { _id: '4', title: "Advanced System Design Notes", description: "Comprehensive notes for scaling microservices and designing highly available systems.", type: "Notes", difficulty: "Advanced", topic: "System Design", sourceName: "PrepFusion Curated", url: "#", tags: ["scaling", "API"] },
-        { _id: '5', title: "Dynamic Programming Patterns", description: "Master DP by recognizing these 5 patterns. Stop memorizing solutions.", type: "Video", difficulty: "Advanced", topic: "DSA", sourceName: "YouTube", url: "#", tags: ["DP", "algorithms"] }
-      ]);
-      setLoading(false);
-    }, 1000);
+    const loadResources = async () => {
+      try {
+        const data = await apiRequest('/api/resources');
+        setResources(data);
+      } catch (err) {
+        setError(err.message || 'Failed to load resources');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadResources();
   }, []);
 
   const getIcon = (type) => {
@@ -80,6 +83,11 @@ const Resources = () => {
         <div className="flex flex-col items-center justify-center py-20">
           <Loader2 className="animate-spin text-purple-500 mb-4" size={48} />
           <p className="text-[var(--muted-foreground)]">Fetching library...</p>
+        </div>
+      ) : error ? (
+        <div className="py-20 text-center">
+          <p className="text-red-400 font-semibold mb-2">Could not load resources</p>
+          <p className="text-[var(--muted-foreground)]">{error}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

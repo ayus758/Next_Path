@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Target, BookOpen, Briefcase, ArrowRight } from 'lucide-react';
+import { apiRequest } from '../lib/api';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,15 +22,20 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+
     try {
-      // Mock API Registration
-      setTimeout(() => {
-        setLoading(false);
-        navigate('/dashboard');
-      }, 1000);
+      const data = await apiRequest('/api/auth/register', {
+        method: 'POST',
+        body: formData,
+        auth: false,
+      });
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      navigate('/dashboard');
     } catch (err) {
-      setError('Registration failed');
+      setError(err.message || 'Registration failed');
+    } finally {
       setLoading(false);
     }
   };
