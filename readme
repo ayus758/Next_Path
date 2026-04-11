@@ -1,0 +1,180 @@
+# NexPath — AI-Powered Career Gap & Preparation Engine
+
+> Graph-E-Thon 2026 · Team NexPath
+
+---
+
+## 🚨 Problem
+
+Students preparing for jobs or competitive exams face a critical issue:
+
+* They don’t know **where they stand**
+* They don’t know **what they are missing**
+* They don’t know **what to do next**
+
+Most platforms provide:
+
+* Content (notes, videos)
+* Practice (questions)
+
+But none clearly answer:
+
+> “Am I ready? If not, what exactly should I fix?”
+
+---
+
+## 💡 Solution
+
+**NexPath** is an AI-powered system that:
+
+* Analyzes your **resume**
+* Understands **job or exam requirements**
+* Identifies your **skill gap**
+* Generates a **clear, actionable roadmap**
+
+---
+
+## 🎯 Core Features
+
+### 1. 📄 Resume Analyzer
+
+* Upload resume (PDF)
+* Extracts skills, projects, experience
+* Identifies missing or weak areas
+
+---
+
+### 2. 🎯 Job / Exam Requirement Analyzer
+
+* Select a target:
+
+  * Job role (e.g. SDE)
+  * Exam (e.g. GATE CSE)
+* System maps required skills/topics
+
+---
+
+### 3. ⚡ Skill Gap Engine (Core Innovation)
+
+* Compares:
+
+  * Your resume vs requirements
+* Outputs:
+
+  * Match percentage
+  * Missing skills/topics
+  * Priority areas
+
+---
+
+### 4. 🗺️ Personalized Roadmap
+
+* Generates step-by-step plan:
+
+  * Topics to study
+  * Order of learning
+  * Suggested timeline
+
+---
+
+### 5. 📚 Integrated Study Support (Optional Layer)
+
+* Topic-wise **notes**
+* Relevant **GATE PYQs**
+* Resources linked directly to roadmap
+
+👉 Not separate — embedded into roadmap
+
+---
+
+## 🧠 What Makes NexPath Different
+
+| Platform           | Limitation             |
+| ------------------ | ---------------------- |
+| Resume tools       | No learning guidance   |
+| Learning platforms | No personalization     |
+| Roadmap tools      | No real skill analysis |
+
+### ✅ NexPath:
+
+> Connects **where you are → where you need to be → how to get there**
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React.js
+* Tailwind CSS
+
+### Backend
+
+* Node.js + Express
+* JWT Authentication
+
+### Database
+
+* MongoDB Atlas
+
+### AI Layer
+
+* OpenAI / Gemini API
+* Resume parsing + prompt logic
+
+---
+
+## 🏗️ System Flow
+
+User → Upload Resume → Select Goal
+↓
+Resume Parsing
+↓
+Requirement Mapping
+↓
+Skill Gap Calculation
+↓
+AI Roadmap Generation
+↓
+Study Resources + PYQs
+
+---
+
+## 🚀 Demo Flow
+
+1. Upload resume
+2. Choose target (SDE / GATE)
+3. View:
+
+   * Match %
+   * Missing skills
+4. Get roadmap
+5. Access notes & PYQs directly
+
+---
+
+## 🔮 Future Scope
+
+* AI mock interviews
+* Progress tracking dashboard
+* Daily study planner
+* Job recommendations
+
+---
+
+## ⚠️ Scope Note (Hackathon)
+
+This MVP focuses on:
+
+* Skill gap detection
+* Roadmap generation
+
+Advanced NLP aggregation is simplified for demo.
+
+---
+
+## 👥 Team
+
+Team NexPath · Graph-E-Thon 2026
+
+---
